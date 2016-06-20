@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Ps01</string>
+    <string name="data">data</string>
+    <string name="bitmap_image">BitmapImage</string>
+    <string name="image_path">ImagePath</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
 </resources>
