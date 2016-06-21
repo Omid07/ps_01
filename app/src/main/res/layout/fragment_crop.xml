@@ -8,18 +8,18 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.omid.ps01.MainActivity">
+    tools:context=".EditImageActivity">
 
-    <Button
-        android:id="@+id/button_camera"
+    <com.theartofdev.edmodo.cropper.CropImageView
+        android:id="@+id/image_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/camera"/>
+        android:layout_centerHorizontal="true"/>
 
     <Button
-        android:id="@+id/button_gallery"
+        android:id="@+id/button_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/button_camera"
-        android:text="@string/gallery"/>
+        android:layout_below="@+id/image_edit"
+        android:text="@string/done"/>
 </RelativeLayout>
