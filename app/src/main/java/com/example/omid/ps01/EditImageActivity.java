@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class EditImageActivity extends AppCompatActivity implements CropFragment.OnCropListener {
+public class EditImageActivity extends AppCompatActivity implements View.OnClickListener,
+        CropFragment.OnCropListener, LightFragment.OnLightListener {
     private Bitmap mOriginalBitmap;
     private String mImagePath;
     private Button mCrop;
+    private Button mLight;
     private FragmentManager mFragmentManager;
     private MainFragment mMainFragment;
 
@@ -27,13 +29,25 @@ public class EditImageActivity extends AppCompatActivity implements CropFragment
         mMainFragment = new MainFragment();
         addFragment(mMainFragment);
         mCrop = (Button) findViewById(R.id.button_crop);
-        mCrop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mLight = (Button) findViewById(R.id.button_light);
+        mCrop.setOnClickListener(this);
+        mLight.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button_crop:
                 CropFragment cropFragment = new CropFragment();
                 replaceFragment(cropFragment);
-            }
-        });
+                break;
+            case R.id.button_light:
+                LightFragment lightFragment = new LightFragment();
+                replaceFragment(lightFragment);
+                break;
+            default:
+                break;
+        }
     }
 
     private void addFragment(Fragment fragment) {
@@ -57,6 +71,11 @@ public class EditImageActivity extends AppCompatActivity implements CropFragment
     }
 
     public void getCropImage(Bitmap bitmap) {
+        mOriginalBitmap = bitmap;
+    }
+
+    @Override
+    public void getLightImage(Bitmap bitmap) {
         mOriginalBitmap = bitmap;
     }
 }

@@ -18,6 +18,7 @@ public class CropFragment extends Fragment {
     private Button mButtonDone;
     private Bitmap mCropped;
     private Button mButtonCrop;
+    private Button mButtonLight;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,7 +28,9 @@ public class CropFragment extends Fragment {
         mImageView = (CropImageView) view.findViewById(R.id.image_edit);
         mButtonDone = (Button) view.findViewById(R.id.button_done);
         mButtonCrop = (Button) getActivity().findViewById(R.id.button_crop);
+        mButtonLight = (Button) getActivity().findViewById(R.id.button_light);
         mButtonCrop.setVisibility(View.GONE);
+        mButtonLight.setVisibility(View.GONE);
         Bitmap bitmap = mEditImageActivity.getBitmap();
         if (bitmap != null) {
             mImageView.setImageBitmap(bitmap);

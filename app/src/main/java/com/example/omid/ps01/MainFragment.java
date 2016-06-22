@@ -16,6 +16,7 @@ public class MainFragment extends Fragment {
     private ImageView mImageView;
     private EditImageActivity mEditImageActivity;
     private Button mButtonCrop;
+    private Button mButtonLight;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -24,6 +25,9 @@ public class MainFragment extends Fragment {
         mImageView = (ImageView) view.findViewById(R.id.image_edit);
         mButtonCrop = (Button) getActivity().findViewById(R.id.button_crop);
         mButtonCrop.setVisibility(View.VISIBLE);
+        mButtonLight = (Button) getActivity().findViewById(R.id.button_light);
+        mButtonCrop.setVisibility(View.VISIBLE);
+        mButtonLight.setVisibility(View.VISIBLE);
         Bitmap bitmap = mEditImageActivity.getBitmap();
         if (bitmap != null) {
             mImageView.setImageBitmap(bitmap);
