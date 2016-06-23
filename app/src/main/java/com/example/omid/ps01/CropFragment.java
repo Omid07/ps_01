@@ -16,24 +16,17 @@ public class CropFragment extends Fragment {
     private CropImageView mImageView;
     private EditImageActivity mEditImageActivity;
     private Button mButtonDone;
-    private Bitmap mCropped;
-    private Button mButtonCrop;
-    private Button mButtonLight;
+    private Bitmap mCropped, mBitmap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         container.removeAllViewsInLayout();
         View view = inflater.inflate(R.layout.fragment_crop, container, false);
-        mImageView = (CropImageView) view.findViewById(R.id.image_edit);
-        mButtonDone = (Button) view.findViewById(R.id.button_done);
-        mButtonCrop = (Button) getActivity().findViewById(R.id.button_crop);
-        mButtonLight = (Button) getActivity().findViewById(R.id.button_light);
-        mButtonCrop.setVisibility(View.GONE);
-        mButtonLight.setVisibility(View.GONE);
-        Bitmap bitmap = mEditImageActivity.getBitmap();
-        if (bitmap != null) {
-            mImageView.setImageBitmap(bitmap);
+        findViewByID(view);
+        mBitmap = mEditImageActivity.getBitmap();
+        if (mBitmap != null) {
+            mImageView.setImageBitmap(mBitmap);
         } else {
             String mImagePath = mEditImageActivity.getImagePath();
             mImageView.setImageBitmap(BitmapFactory.decodeFile(mImagePath));
@@ -50,6 +43,13 @@ public class CropFragment extends Fragment {
         return view;
     }
 
+    public void findViewByID(View view) {
+        mImageView = (CropImageView) view.findViewById(R.id.image_edit);
+        mButtonDone = (Button) view.findViewById(R.id.button_done);
+        mImageView = (CropImageView) view.findViewById(R.id.image_edit);
+        mButtonDone = (Button) view.findViewById(R.id.button_done);
+    }
+
     @Override
     public void onAttach(Activity context) {
         super.onAttach(context);
@@ -58,5 +58,19 @@ public class CropFragment extends Fragment {
 
     public interface OnCropListener {
         void getCropImage(Bitmap bitmap);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        recycling();
+    }
+
+    public void recycling()
+    {
+        if (mBitmap != null) {
+            mBitmap.recycle();
+            mBitmap = null;
+        }
     }
 }

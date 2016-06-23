@@ -10,28 +10,34 @@ import android.view.View;
 import android.widget.Button;
 
 public class EditImageActivity extends AppCompatActivity implements View.OnClickListener,
-        CropFragment.OnCropListener, LightFragment.OnLightListener {
+        CropFragment.OnCropListener, LightFragment.OnLightListener, ColorFragment.OnColorListener {
     private Bitmap mOriginalBitmap;
     private String mImagePath;
-    private Button mCrop;
-    private Button mLight;
     private FragmentManager mFragmentManager;
     private MainFragment mMainFragment;
+    private Button mButtonCrop, mButtonLight, mButtonColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_image);
+        findViewByID();
         mImagePath = getIntent().getExtras().getString(getString(R.string.image_path));
         mOriginalBitmap = (Bitmap) getIntent().getExtras().getParcelable(getString(R.string
                 .bitmap_image));
         mFragmentManager = getFragmentManager();
         mMainFragment = new MainFragment();
         addFragment(mMainFragment);
-        mCrop = (Button) findViewById(R.id.button_crop);
-        mLight = (Button) findViewById(R.id.button_light);
-        mCrop.setOnClickListener(this);
-        mLight.setOnClickListener(this);
+        mButtonCrop.setOnClickListener(this);
+        mButtonLight.setOnClickListener(this);
+        mButtonColor.setOnClickListener(this);
+    }
+
+    public void findViewByID() {
+        mButtonCrop = (Button) findViewById(R.id.button_crop);
+        mButtonLight = (Button) findViewById(R.id.button_light);
+        mButtonColor = (Button) findViewById(R.id.button_color);
+        mButtonLight = (Button) findViewById(R.id.button_light);
     }
 
     @Override
@@ -45,6 +51,10 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
                 LightFragment lightFragment = new LightFragment();
                 replaceFragment(lightFragment);
                 break;
+            case R.id.button_color:
+                ColorFragment colorFragment = new ColorFragment();
+                replaceFragment(colorFragment);
+                break;
             default:
                 break;
         }
@@ -57,6 +67,15 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void replaceFragment(Fragment fragment) {
+        if (fragment.getClass() != MainFragment.class) {
+            mButtonCrop.setVisibility(View.GONE);
+            mButtonLight.setVisibility(View.GONE);
+            mButtonColor.setVisibility(View.GONE);
+        } else {
+            mButtonCrop.setVisibility(View.VISIBLE);
+            mButtonLight.setVisibility(View.VISIBLE);
+            mButtonColor.setVisibility(View.VISIBLE);
+        }
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
@@ -70,6 +89,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         return mImagePath;
     }
 
+    @Override
     public void getCropImage(Bitmap bitmap) {
         mOriginalBitmap = bitmap;
     }
@@ -77,5 +97,24 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void getLightImage(Bitmap bitmap) {
         mOriginalBitmap = bitmap;
+    }
+
+    @Override
+    public void getColorImage(Bitmap bitmap) {
+        mOriginalBitmap = bitmap;
+    }
+
+    public void recycling()
+    {
+        if (mOriginalBitmap != null) {
+            mOriginalBitmap.recycle();
+            mOriginalBitmap = null;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        recycling();
     }
 }

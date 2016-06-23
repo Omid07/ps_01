@@ -8,4 +8,8 @@
     <string name="crop">Crop</string>
     <string name="done">Done</string>
     <string name="light">Light</string>
+    <string name="color">Color</string>
+    <string name="green">Green</string>
+    <string name="blue">Blue</string>
+    <string name="red">Red</string>
 </resources>
