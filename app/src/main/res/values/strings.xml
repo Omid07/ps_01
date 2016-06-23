@@ -5,4 +5,6 @@
     <string name="image_path">ImagePath</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
+    <string name="crop">Crop</string>
+    <string name="done">Done</string>
 </resources>
