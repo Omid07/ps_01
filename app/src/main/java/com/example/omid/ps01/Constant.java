@@ -6,4 +6,6 @@ package com.example.omid.ps01;
 public class Constant {
     public static final int CAMERA_REQUEST = 1;
     public static final int GALLERY_REQUEST = 2;
+    public static final int BRIGHTNESS_INCREASE = 20;
+    public static final int BRIGHTNESS_DECREASE = -20;
 }
