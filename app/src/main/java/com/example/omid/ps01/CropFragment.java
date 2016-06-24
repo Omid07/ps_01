@@ -24,6 +24,12 @@ public class CropFragment extends Fragment {
         container.removeAllViewsInLayout();
         View view = inflater.inflate(R.layout.fragment_crop, container, false);
         findViewByID(view);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         mBitmap = mEditImageActivity.getBitmap();
         if (mBitmap != null) {
             mImageView.setImageBitmap(mBitmap);
@@ -40,7 +46,6 @@ public class CropFragment extends Fragment {
                 mEditImageActivity.replaceFragment(fragment);
             }
         });
-        return view;
     }
 
     public void findViewByID(View view) {

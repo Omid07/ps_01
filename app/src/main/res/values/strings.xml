@@ -12,4 +12,7 @@
     <string name="green">Green</string>
     <string name="blue">Blue</string>
     <string name="red">Red</string>
+    <string name="black_n_white">Black n white</string>
+    <string name="hue">HUE</string>
+    <string name="apply">Apply</string>
 </resources>

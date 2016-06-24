@@ -43,5 +43,20 @@
             android:layout_below="@+id/frame_layout"
             android:layout_toRightOf="@+id/button_light"
             android:text="@string/color"/>
+
+        <Button
+            android:id="@+id/button_black_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_crop"
+            android:text="@string/black_n_white"/>
+
+        <Button
+            android:id="@+id/button_hue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_crop"
+            android:layout_toRightOf="@id/button_black_white"
+            android:text="@string/hue"/>
     </RelativeLayout>
 </ScrollView>
