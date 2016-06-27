@@ -11,12 +11,12 @@ import android.widget.Button;
 
 public class EditImageActivity extends AppCompatActivity implements View.OnClickListener,
         CropFragment.OnCropListener, LightFragment.OnLightListener, ColorFragment
-                .OnColorListener, BlackAndWhiteFragment.OnBlackAndWhiteListener, HueFragment.OnHueListener {
+                .OnColorListener, BlackAndWhiteFragment.OnBlackAndWhiteListener, HueFragment.OnHueListener, ScaleFragment.OnScaleListener {
     private Bitmap mOriginalBitmap;
     private String mImagePath;
     private FragmentManager mFragmentManager;
     private MainFragment mMainFragment;
-    private Button mButtonCrop, mButtonLight, mButtonColor, mButtonBlacknWhite, mButtonHue;
+    private Button mButtonCrop, mButtonLight, mButtonColor, mButtonBlacknWhite, mButtonHue, mScale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         mButtonColor.setOnClickListener(this);
         mButtonBlacknWhite.setOnClickListener(this);
         mButtonHue.setOnClickListener(this);
+        mScale.setOnClickListener(this);
     }
 
     public void findViewByID() {
@@ -43,6 +44,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         mButtonLight = (Button) findViewById(R.id.button_light);
         mButtonBlacknWhite = (Button) findViewById(R.id.button_black_white);
         mButtonHue = (Button) findViewById(R.id.button_hue);
+        mScale = (Button) findViewById(R.id.button_scale);
     }
 
     @Override
@@ -68,6 +70,10 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
                 HueFragment hueFragment = new HueFragment();
                 replaceFragment(hueFragment);
                 break;
+            case R.id.button_scale:
+                ScaleFragment scaleFragment = new ScaleFragment();
+                replaceFragment(scaleFragment);
+                break;
             default:
                 break;
         }
@@ -86,12 +92,14 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
             mButtonColor.setVisibility(View.GONE);
             mButtonBlacknWhite.setVisibility(View.GONE);
             mButtonHue.setVisibility(View.GONE);
+            mScale.setVisibility(View.GONE);
         } else {
             mButtonCrop.setVisibility(View.VISIBLE);
             mButtonLight.setVisibility(View.VISIBLE);
             mButtonColor.setVisibility(View.VISIBLE);
             mButtonBlacknWhite.setVisibility(View.VISIBLE);
             mButtonHue.setVisibility(View.VISIBLE);
+            mScale.setVisibility(View.VISIBLE);
         }
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
@@ -128,6 +136,11 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void getHueImage(Bitmap bitmap) {
+        mOriginalBitmap = bitmap;
+    }
+
+    @Override
+    public void getScaleImage(Bitmap bitmap) {
         mOriginalBitmap = bitmap;
     }
 
