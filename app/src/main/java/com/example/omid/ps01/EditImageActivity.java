@@ -10,12 +10,13 @@ import android.view.View;
 import android.widget.Button;
 
 public class EditImageActivity extends AppCompatActivity implements View.OnClickListener,
-        CropFragment.OnCropListener, LightFragment.OnLightListener, ColorFragment.OnColorListener {
+        CropFragment.OnCropListener, LightFragment.OnLightListener, ColorFragment
+                .OnColorListener, BlackAndWhiteFragment.OnBlackAndWhiteListener, HueFragment.OnHueListener {
     private Bitmap mOriginalBitmap;
     private String mImagePath;
     private FragmentManager mFragmentManager;
     private MainFragment mMainFragment;
-    private Button mButtonCrop, mButtonLight, mButtonColor;
+    private Button mButtonCrop, mButtonLight, mButtonColor, mButtonBlacknWhite, mButtonHue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,8 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         mButtonCrop.setOnClickListener(this);
         mButtonLight.setOnClickListener(this);
         mButtonColor.setOnClickListener(this);
+        mButtonBlacknWhite.setOnClickListener(this);
+        mButtonHue.setOnClickListener(this);
     }
 
     public void findViewByID() {
@@ -38,6 +41,8 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         mButtonLight = (Button) findViewById(R.id.button_light);
         mButtonColor = (Button) findViewById(R.id.button_color);
         mButtonLight = (Button) findViewById(R.id.button_light);
+        mButtonBlacknWhite = (Button) findViewById(R.id.button_black_white);
+        mButtonHue = (Button) findViewById(R.id.button_hue);
     }
 
     @Override
@@ -55,6 +60,14 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
                 ColorFragment colorFragment = new ColorFragment();
                 replaceFragment(colorFragment);
                 break;
+            case R.id.button_black_white:
+                BlackAndWhiteFragment blackAndWhiteFragment = new BlackAndWhiteFragment();
+                replaceFragment(blackAndWhiteFragment);
+                break;
+            case R.id.button_hue:
+                HueFragment hueFragment = new HueFragment();
+                replaceFragment(hueFragment);
+                break;
             default:
                 break;
         }
@@ -71,10 +84,14 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
             mButtonCrop.setVisibility(View.GONE);
             mButtonLight.setVisibility(View.GONE);
             mButtonColor.setVisibility(View.GONE);
+            mButtonBlacknWhite.setVisibility(View.GONE);
+            mButtonHue.setVisibility(View.GONE);
         } else {
             mButtonCrop.setVisibility(View.VISIBLE);
             mButtonLight.setVisibility(View.VISIBLE);
             mButtonColor.setVisibility(View.VISIBLE);
+            mButtonBlacknWhite.setVisibility(View.VISIBLE);
+            mButtonHue.setVisibility(View.VISIBLE);
         }
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
@@ -101,6 +118,16 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void getColorImage(Bitmap bitmap) {
+        mOriginalBitmap = bitmap;
+    }
+
+    @Override
+    public void getBlackAndWhiteImage(Bitmap bitmap) {
+        mOriginalBitmap = bitmap;
+    }
+
+    @Override
+    public void getHueImage(Bitmap bitmap) {
         mOriginalBitmap = bitmap;
     }
 

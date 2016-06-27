@@ -24,10 +24,15 @@ public class ColorFragment extends Fragment implements View.OnClickListener {
         container.removeAllViewsInLayout();
         View view = inflater.inflate(R.layout.fragment_color, container, false);
         findViewByID(view);
-        Bitmap bitmap = mEditImageActivity.getBitmap();
-        if (bitmap != null) {
-            mImageView.setImageBitmap(bitmap);
-            mBitmap = bitmap;
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mBitmap = mEditImageActivity.getBitmap();
+        if (mBitmap != null) {
+            mImageView.setImageBitmap(mBitmap);
         } else {
             String mImagePath = mEditImageActivity.getImagePath();
             mImageView.setImageBitmap(BitmapFactory.decodeFile(mImagePath));
@@ -37,7 +42,6 @@ public class ColorFragment extends Fragment implements View.OnClickListener {
         mButtonRed.setOnClickListener(this);
         mButtonBlue.setOnClickListener(this);
         mButtonGreen.setOnClickListener(this);
-        return view;
     }
 
     public void findViewByID(View view) {

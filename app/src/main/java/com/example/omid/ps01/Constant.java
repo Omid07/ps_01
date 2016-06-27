@@ -8,4 +8,6 @@ public class Constant {
     public static final int GALLERY_REQUEST = 2;
     public static final int BRIGHTNESS_INCREASE = 20;
     public static final int BRIGHTNESS_DECREASE = -20;
+    public static final int HUE_INCREASE = 30;
+    public static final int HUE_DECREASE = -30;
 }
