@@ -29,11 +29,19 @@
             android:text="@string/crop"/>
 
         <Button
+            android:id="@+id/button_light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button_light"
-            android:layout_toRightOf="@+id/button_crop"
             android:layout_below="@+id/frame_layout"
+            android:layout_toRightOf="@+id/button_crop"
             android:text="@string/light"/>
+
+        <Button
+            android:id="@+id/button_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/frame_layout"
+            android:layout_toRightOf="@+id/button_light"
+            android:text="@string/color"/>
     </RelativeLayout>
 </ScrollView>
