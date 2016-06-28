@@ -80,4 +80,8 @@ public class ImageEffect {
         canvas.drawBitmap(src, 0, 0, paint);
         return alteredBitmap;
     }
+
+    public static Bitmap doScale(Bitmap src, int x, int y) {
+       return Bitmap.createScaledBitmap(src, x, y, true);
+    }
 }

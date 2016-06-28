@@ -15,4 +15,10 @@
     <string name="black_n_white">Black n white</string>
     <string name="hue">HUE</string>
     <string name="apply">Apply</string>
+    <string name="scale">Scale</string>
+    <string name="value_for_sacle">Please put the both value of the scaling size</string>
+    <string name="reduce_sacle_value">Please reduce the value of scaling</string>
+    <string name="x">X</string>
+    <string name="value_for_y">Value for y</string>
+    <string name="value_for_x">Value for x</string>
 </resources>
