@@ -12,4 +12,9 @@ public class Constant {
     public static final int HUE_DECREASE = -30;
     public static final int MAX_X_VALUE = 1600;
     public static final int MAX_Y_VALUE = 1196;
+    public static final int PICK_IMAGE_MULTIPLE = 3;
+    public static final int SCALING_X_VALUE = 600;
+    public static final int SCALING_Y_VALUE = 600;
+    public static final String IMAGE_TYPE = "image/*";
+    public static final int MAX_NUMBER_IMAGE = 2;
 }

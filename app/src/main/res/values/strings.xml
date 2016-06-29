@@ -21,4 +21,9 @@
     <string name="x">X</string>
     <string name="value_for_y">Value for y</string>
     <string name="value_for_x">Value for x</string>
+    <string name="images_path">ImagesPath</string>
+    <string name="select_two_images">Please select two images</string>
+    <string name="image_saved">Image saved</string>
+    <string name="merge">Merge</string>
+    <string name="select_picture">Select Picture</string>
 </resources>
