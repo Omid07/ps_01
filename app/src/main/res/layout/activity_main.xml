@@ -22,4 +22,11 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/button_camera"
         android:text="@string/gallery"/>
+
+    <Button
+        android:id="@+id/button_merge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_camera"
+        android:text="@string/merge"/>
 </RelativeLayout>

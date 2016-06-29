@@ -4,19 +4,23 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class EditImageActivity extends AppCompatActivity implements View.OnClickListener,
         CropFragment.OnCropListener, LightFragment.OnLightListener, ColorFragment
-                .OnColorListener, BlackAndWhiteFragment.OnBlackAndWhiteListener, HueFragment.OnHueListener, ScaleFragment.OnScaleListener {
+                .OnColorListener, BlackAndWhiteFragment.OnBlackAndWhiteListener, HueFragment
+                .OnHueListener, ScaleFragment.OnScaleListener {
     private Bitmap mOriginalBitmap;
     private String mImagePath;
     private FragmentManager mFragmentManager;
     private MainFragment mMainFragment;
-    private Button mButtonCrop, mButtonLight, mButtonColor, mButtonBlacknWhite, mButtonHue, mScale;
+    private Button mButtonCrop, mButtonLight, mButtonColor, mButtonBlacknWhite, mButtonHue,
+            mScale, mDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         mButtonBlacknWhite.setOnClickListener(this);
         mButtonHue.setOnClickListener(this);
         mScale.setOnClickListener(this);
+        mDone.setOnClickListener(this);
     }
 
     public void findViewByID() {
@@ -45,6 +50,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         mButtonBlacknWhite = (Button) findViewById(R.id.button_black_white);
         mButtonHue = (Button) findViewById(R.id.button_hue);
         mScale = (Button) findViewById(R.id.button_scale);
+        mDone = (Button) findViewById(R.id.button_done);
     }
 
     @Override
@@ -74,6 +80,11 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
                 ScaleFragment scaleFragment = new ScaleFragment();
                 replaceFragment(scaleFragment);
                 break;
+            case R.id.button_done:
+                MediaStore.Images.Media.insertImage(getContentResolver(), mOriginalBitmap, null,
+                        null);
+                Toast.makeText(getApplicationContext(), R.string.image_saved, Toast.LENGTH_LONG)
+                        .show();
             default:
                 break;
         }
@@ -93,6 +104,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
             mButtonBlacknWhite.setVisibility(View.GONE);
             mButtonHue.setVisibility(View.GONE);
             mScale.setVisibility(View.GONE);
+            mDone.setVisibility(View.GONE);
         } else {
             mButtonCrop.setVisibility(View.VISIBLE);
             mButtonLight.setVisibility(View.VISIBLE);
@@ -100,6 +112,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
             mButtonBlacknWhite.setVisibility(View.VISIBLE);
             mButtonHue.setVisibility(View.VISIBLE);
             mScale.setVisibility(View.VISIBLE);
+            mDone.setVisibility(View.VISIBLE);
         }
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
@@ -144,8 +157,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         mOriginalBitmap = bitmap;
     }
 
-    public void recycling()
-    {
+    public void recycling() {
         if (mOriginalBitmap != null) {
             mOriginalBitmap.recycle();
             mOriginalBitmap = null;
