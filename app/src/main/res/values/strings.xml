@@ -26,4 +26,7 @@
     <string name="image_saved">Image saved</string>
     <string name="merge">Merge</string>
     <string name="select_picture">Select Picture</string>
+    <string name="make_video">Make Video</string>
+    <string name="select_max_six">Please select max six images</string>
+    <string name="stop">Stop</string>
 </resources>

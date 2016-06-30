@@ -2,7 +2,6 @@ package com.example.omid.ps01;
 
 import android.annotation.TargetApi;
 import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -21,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mButtonCamera;
     private Button mButtonGallery;
     private Button mButtonMerge;
+    private Button mButtonVideo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +30,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mButtonCamera.setOnClickListener(this);
         mButtonGallery.setOnClickListener(this);
         mButtonMerge.setOnClickListener(this);
+        mButtonVideo.setOnClickListener(this);
     }
 
     public void findViewByID() {
         mButtonCamera = (Button) findViewById(R.id.button_camera);
         mButtonGallery = (Button) findViewById(R.id.button_gallery);
         mButtonMerge = (Button) findViewById(R.id.button_merge);
+        mButtonVideo = (Button) findViewById(R.id.button_video);
     }
 
     public void openCamera() {
@@ -50,12 +52,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void doMerge() {
+        Intent intent = startIntentForImages();
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture)),
+                Constant
+                .PICK_IMAGE_MULTIPLE);
+    }
+
+    public void makeVideo() {
+        Intent intent = startIntentForImages();
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture)),
+                Constant
+                .PICK_IMAGES_FOR_VIDEO);
+    }
+
+    public Intent startIntentForImages() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media
                 .EXTERNAL_CONTENT_URI);
         intent.setType(Constant.IMAGE_TYPE);
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture)), Constant
-                .PICK_IMAGE_MULTIPLE);
+        return intent;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -83,33 +98,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }
         if (requestCode == Constant.PICK_IMAGE_MULTIPLE) {
-            ArrayList<String> paths = new ArrayList<>();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            if (data != null) {
-                ClipData clipData = data.getClipData();
-                if (clipData != null) {
-                    for (int i = 0; i < clipData.getItemCount(); i++) {
-                        ClipData.Item item = clipData.getItemAt(i);
-                        Uri uri = item.getUri();
-                        Cursor cursor = getContentResolver().query(uri, filePathColumn, null, null,
-                                null);
-                        cursor.moveToFirst();
-                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                        String picturePaths = cursor.getString(columnIndex);
-                        paths.add(picturePaths);
-                        cursor.close();
-                    }
-                    if (paths.size() == Constant.MAX_NUMBER_IMAGE) {
-                        Intent intent = new Intent(MainActivity.this, MergeImageActivity.class);
-                        intent.putExtra(getString(R.string.images_path), paths);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(getApplicationContext(), R.string.select_two_images, Toast
-                                .LENGTH_LONG).show();
-                    }
+            ArrayList<String> paths = getImagesPaths(data);
+            if (paths.size() == Constant.MAX_NUMBER_IMAGE) {
+                Intent intent = new Intent(MainActivity.this, MergeImageActivity.class);
+                intent.putExtra(getString(R.string.images_path), paths);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(), R.string.select_two_images, Toast
+                        .LENGTH_LONG).show();
+            }
+        }
+        if (requestCode == Constant.PICK_IMAGES_FOR_VIDEO) {
+            ArrayList<String> imagesPaths = getImagesPaths(data);
+            if (imagesPaths.size() > Constant.MAX_NUMBER_IMAGE_FOR_VIDEO) {
+                Toast.makeText(getApplicationContext(), R.string.select_max_six, Toast
+                        .LENGTH_LONG).show();
+            } else {
+                Intent intent = new Intent(MainActivity.this, VideoActivity.class);
+                intent.putExtra(getString(R.string.images_path), imagesPaths);
+                startActivity(intent);
+            }
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public ArrayList<String> getImagesPaths(Intent data) {
+        ArrayList<String> paths = new ArrayList<>();
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        if (data != null) {
+            ClipData clipData = data.getClipData();
+            if (clipData != null) {
+                for (int i = 0; i < clipData.getItemCount(); i++) {
+                    ClipData.Item item = clipData.getItemAt(i);
+                    Uri uri = item.getUri();
+                    Cursor cursor = getContentResolver().query(uri, filePathColumn, null, null,
+                            null);
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String picturePaths = cursor.getString(columnIndex);
+                    paths.add(picturePaths);
+                    cursor.close();
                 }
             }
         }
+        return paths;
     }
 
     @Override
@@ -124,6 +156,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button_merge:
                 doMerge();
                 break;
+            case R.id.button_video:
+                makeVideo();
             default:
                 break;
         }

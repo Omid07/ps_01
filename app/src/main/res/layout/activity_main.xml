@@ -29,4 +29,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/button_camera"
         android:text="@string/merge"/>
+
+    <Button
+        android:id="@+id/button_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_camera"
+        android:layout_toRightOf="@+id/button_merge"
+        android:text="@string/make_video"/>
 </RelativeLayout>
