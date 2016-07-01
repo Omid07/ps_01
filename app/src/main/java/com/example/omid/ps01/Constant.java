@@ -17,4 +17,9 @@ public class Constant {
     public static final int SCALING_Y_VALUE = 600;
     public static final String IMAGE_TYPE = "image/*";
     public static final int MAX_NUMBER_IMAGE = 2;
+    public static final int PICK_IMAGES_FOR_VIDEO = 4;
+    public static final int MAX_NUMBER_IMAGE_FOR_VIDEO = 6;
+    public static final int DURATION = 5000;
+    public static final int VIDEO_IMAGE_SCALING_X_VALUE = 700;
+    public static final int VIDEO_IMAGE_SCALING_Y_VALUE = 600;
 }
