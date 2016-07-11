@@ -22,4 +22,5 @@ public class Constant {
     public static final int DURATION = 5000;
     public static final int VIDEO_IMAGE_SCALING_X_VALUE = 700;
     public static final int VIDEO_IMAGE_SCALING_Y_VALUE = 600;
+    public static final int IMAGE_SWTCHER_TIME = 2000;
 }

@@ -10,31 +10,49 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.omid.ps01.MainActivity">
 
-    <Button
-        android:id="@+id/button_camera"
+    <ImageSwitcher
+        android:id="@+id/image_switcher"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_300dp"/>
+
+    <TextView
+        android:id="@+id/text_line"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/image_switcher"
+        android:layout_centerHorizontal="true"
+        android:text="@string/make_your_memory_more_colorful"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/button_camera"
+        android:layout_width="@dimen/_150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_line"
         android:text="@string/camera"/>
 
     <Button
         android:id="@+id/button_gallery"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_150dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/text_line"
+        android:layout_marginLeft="@dimen/_10dp"
         android:layout_toRightOf="@+id/button_camera"
         android:text="@string/gallery"/>
 
     <Button
         android:id="@+id/button_merge"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_150dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button_camera"
         android:text="@string/merge"/>
 
     <Button
         android:id="@+id/button_video"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_150dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button_camera"
+        android:layout_marginLeft="@dimen/_10dp"
         android:layout_toRightOf="@+id/button_merge"
         android:text="@string/make_video"/>
 </RelativeLayout>

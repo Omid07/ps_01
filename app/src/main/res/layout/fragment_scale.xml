@@ -19,44 +19,55 @@
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"/>
 
-        <EditText
-            android:id="@+id/et_xvalue"
-            android:layout_width="100dp"
+        <LinearLayout
+            android:id="@+id/linear_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/image_edit"
-            android:hint="@string/value_for_x"
-            android:inputType="number"/>
+            android:gravity="center">
 
-        <TextView
-            android:id="@+id/X"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/image_edit"
-            android:layout_toRightOf="@id/et_xvalue"
-            android:text="@string/x"/>
+            <EditText
+                android:id="@+id/et_xvalue"
+                android:layout_width="@dimen/_100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image_edit"
+                android:hint="@string/value_for_x"
+                android:inputType="number"/>
 
-        <EditText
-            android:id="@+id/et_yvalue"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/image_edit"
-            android:layout_toRightOf="@+id/X"
-            android:hint="@string/value_for_y"
-            android:inputType="number"/>
+            <TextView
+                android:id="@+id/X"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image_edit"
+                android:layout_toRightOf="@id/et_xvalue"
+                android:text="@string/x"
+                android:textSize="@dimen/_20dp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/et_yvalue"
+                android:layout_width="@dimen/_100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image_edit"
+                android:layout_toRightOf="@+id/X"
+                android:hint="@string/value_for_y"
+                android:inputType="number"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/button_apply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/et_xvalue"
+            android:layout_below="@+id/linear_layout"
             android:layout_centerHorizontal="true"
             android:text="@string/apply"/>
 
         <Button
             android:id="@+id/button_done"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/button_apply"
+            android:layout_centerHorizontal="true"
             android:text="@string/done"/>
     </RelativeLayout>
 </ScrollView>

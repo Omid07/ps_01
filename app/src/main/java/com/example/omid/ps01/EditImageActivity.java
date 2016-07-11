@@ -20,7 +20,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
     private FragmentManager mFragmentManager;
     private MainFragment mMainFragment;
     private Button mButtonCrop, mButtonLight, mButtonColor, mButtonBlacknWhite, mButtonHue,
-            mScale, mDone;
+            mScale, mSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         mButtonBlacknWhite.setOnClickListener(this);
         mButtonHue.setOnClickListener(this);
         mScale.setOnClickListener(this);
-        mDone.setOnClickListener(this);
+        mSave.setOnClickListener(this);
     }
 
     public void findViewByID() {
@@ -50,7 +50,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         mButtonBlacknWhite = (Button) findViewById(R.id.button_black_white);
         mButtonHue = (Button) findViewById(R.id.button_hue);
         mScale = (Button) findViewById(R.id.button_scale);
-        mDone = (Button) findViewById(R.id.button_done);
+        mSave = (Button) findViewById(R.id.button_save);
     }
 
     @Override
@@ -80,11 +80,12 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
                 ScaleFragment scaleFragment = new ScaleFragment();
                 replaceFragment(scaleFragment);
                 break;
-            case R.id.button_done:
+            case R.id.button_save:
                 MediaStore.Images.Media.insertImage(getContentResolver(), mOriginalBitmap, null,
                         null);
                 Toast.makeText(getApplicationContext(), R.string.image_saved, Toast.LENGTH_LONG)
                         .show();
+                break;
             default:
                 break;
         }
@@ -104,7 +105,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
             mButtonBlacknWhite.setVisibility(View.GONE);
             mButtonHue.setVisibility(View.GONE);
             mScale.setVisibility(View.GONE);
-            mDone.setVisibility(View.GONE);
+            mSave.setVisibility(View.GONE);
         } else {
             mButtonCrop.setVisibility(View.VISIBLE);
             mButtonLight.setVisibility(View.VISIBLE);
@@ -112,7 +113,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
             mButtonBlacknWhite.setVisibility(View.VISIBLE);
             mButtonHue.setVisibility(View.VISIBLE);
             mScale.setVisibility(View.VISIBLE);
-            mDone.setVisibility(View.VISIBLE);
+            mSave.setVisibility(View.VISIBLE);
         }
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);

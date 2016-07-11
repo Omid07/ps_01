@@ -29,4 +29,6 @@
     <string name="make_video">Make Video</string>
     <string name="select_max_six">Please select max six images</string>
     <string name="stop">Stop</string>
+    <string name="save">Save</string>
+    <string name="make_your_memory_more_colorful">Make your memory more colorful</string>
 </resources>

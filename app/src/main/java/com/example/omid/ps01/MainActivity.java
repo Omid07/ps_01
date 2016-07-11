@@ -1,6 +1,8 @@
 package com.example.omid.ps01;
 
 import android.annotation.TargetApi;
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,7 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import java.util.ArrayList;
 
@@ -21,12 +26,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mButtonGallery;
     private Button mButtonMerge;
     private Button mButtonVideo;
+    private ImageSwitcher mImageSwitcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViewByID();
+        mImageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                ImageView imageView = new ImageView(getApplicationContext());
+                imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                imageView.setLayoutParams(new ImageSwitcher.LayoutParams(ActionBar.LayoutParams.
+                        MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT));
+                return imageView;
+            }
+        });
+        mImageSwitcher.postDelayed(new Runnable() {
+            int i = 0;
+            public void run() {
+                mImageSwitcher.setImageResource(i++ % 2 == 0 ? R.drawable.image1 : R.drawable
+                        .image2);
+                mImageSwitcher.postDelayed(this, Constant.IMAGE_SWTCHER_TIME);
+            }
+        }, Constant.IMAGE_SWTCHER_TIME);
         mButtonCamera.setOnClickListener(this);
         mButtonGallery.setOnClickListener(this);
         mButtonMerge.setOnClickListener(this);
@@ -38,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mButtonGallery = (Button) findViewById(R.id.button_gallery);
         mButtonMerge = (Button) findViewById(R.id.button_merge);
         mButtonVideo = (Button) findViewById(R.id.button_video);
+        mImageSwitcher = (ImageSwitcher) findViewById(R.id.image_switcher);
     }
 
     public void openCamera() {
@@ -54,15 +79,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void doMerge() {
         Intent intent = startIntentForImages();
         startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture)),
-                Constant
-                .PICK_IMAGE_MULTIPLE);
+                Constant.PICK_IMAGE_MULTIPLE);
     }
 
     public void makeVideo() {
         Intent intent = startIntentForImages();
         startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture)),
-                Constant
-                .PICK_IMAGES_FOR_VIDEO);
+                Constant.PICK_IMAGES_FOR_VIDEO);
     }
 
     public Intent startIntentForImages() {
